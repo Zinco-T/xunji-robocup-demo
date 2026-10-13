@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>寻迹 · 导航与寻物 2.1</title>
+<style>:root{color-scheme:light;--ink:#20372f;--muted:#62766c;--paper:#f2f5f1;--card:#fff;--line:#dce5df;--green:#17664d;--mint:#dff1e8;--amber:#ad6320;--red:#a13c38;--map:#f8faf7}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 "Microsoft YaHei","Segoe UI",system-ui,sans-serif}button,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:10px 16px;white-space:nowrap;transition:background .15s,transform .15s}button:hover:not(:disabled){background:#e8f1eb;border-color:#a9bfb1}button:active:not(:disabled){transform:translateY(1px)}button:disabled{cursor:not-allowed;opacity:.43}button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #e3a151;outline-offset:3px}button.primary{background:var(--green);border-color:var(--green);color:white;min-width:100px}button.primary:hover:not(:disabled){background:#124f3c}button.demo{background:#e7efe7;border-color:#c4d7c8;font-weight:600}button[aria-pressed=true]{background:var(--ink);color:white}select{color:var(--ink);padding:9px 30px 9px 12px;border:1px solid var(--line);border-radius:8px;background:white;min-height:42px}h1,h2,h3,p{margin:0}h2{font-size:17px;line-height:1.4}h3{font-size:16px;margin-bottom:10px}.app{max-width:1600px;margin:auto;padding:24px 32px 18px}.masthead,.brand,.context,.toolbar,.transport,.record-controls,.panel-heading,.map-footer,.legend,.interventions,.map-footer>div{display:flex;align-items:center}.masthead{justify-content:space-between;margin-bottom:24px}.brand{gap:14px}.brandmark{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:var(--green);color:white;font-size:25px;font-weight:bold;box-shadow:0 4px 10px #174c3220}.brand h1{font-size:27px;letter-spacing:1px;line-height:1.4}.brand h1 span{font-size:18px;font-weight:400;letter-spacing:0;margin-left:10px}.brand p{font-size:13px;color:var(--muted);letter-spacing:1.5px}.context{gap:10px;font-size:12px;color:var(--muted)}.scope{padding:7px 12px;border-radius:20px;background:#e5ece5;color:#406550}.version{font-size:17px;font-weight:600}.toolbar{gap:20px;padding:16px 20px;background:white;border:1px solid var(--line);border-radius:13px;flex-wrap:wrap}.scenario-field{flex:1;min-width:230px;display:flex;gap:10px;align-items:center}.scenario-field label,.speed-field label{font-size:13px;white-space:nowrap;color:var(--muted)}.scenario-field select{width:100%;max-width:360px}.transport{gap:8px}.speed-field{display:flex;gap:8px;align-items:center}.record-controls{gap:8px;margin-left:auto}.scenario-note{font-size:13px;min-height:37px;padding:9px 3px;color:var(--muted)}.stages{display:grid;grid-template-columns:repeat(4,1fr);margin:3px 0 16px;border-radius:10px;background:#e9eee8;overflow:hidden}.stages>div{position:relative;display:flex;gap:9px;align-items:center;padding:11px 19px;font-size:14px;color:#62776a}.stages>div:not(:last-child):after{content:"›";position:absolute;right:11px;color:#adbbb1;font-size:20px}.stages b{font-size:12px;font-weight:600}.stages>div.active{background:var(--green);color:white}.stages>div.active:after{color:#9bc3b0}.workspace{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(330px,1fr);gap:18px}.panel{background:var(--card);border:1px solid var(--line);border-radius:13px;overflow:hidden}.panel-heading{justify-content:space-between;gap:10px}.panel-heading small{display:inline-block;margin-left:10px;font-size:12px;font-weight:400;color:var(--muted)}.map-panel{padding:20px 22px 14px;display:flex;flex-direction:column}.state-pill{font-size:12px;padding:5px 10px;background:var(--mint);border-radius:20px;white-space:nowrap;color:var(--green)}.state-pill.alert{background:#fff0da;color:var(--amber)}.state-pill.failed{background:#fae6e4;color:var(--red)}.map{flex:1;display:grid;place-items:center;min-height:300px;max-height:440px;margin:10px 0 7px;overflow:hidden;background:var(--map);border-radius:8px}.map svg{height:100%;width:100%;max-height:420px;min-height:300px;display:block}.map svg text{font-family:"Microsoft YaHei","Segoe UI",sans-serif;user-select:none}.map svg [data-cell]{cursor:pointer}.map-footer{justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)}.legend{gap:16px;flex-wrap:wrap}.legend>span{display:flex;align-items:center;gap:6px}.legend i{display:inline-block;width:10px;height:10px;background:#8ea49b;border-radius:3px}.legend .robot-key{background:#17664d;border-radius:50%}.legend .route-key{height:3px;background:#37a17b}.legend .view-key{background:white;border:2px solid #7f9c8b;border-radius:50%}.legend .block-key{background:#cf8d48}.position-label{font-variant-numeric:tabular-nums}.interventions{gap:8px;border-top:1px solid #edf1eb;margin-top:13px;padding-top:12px;flex-wrap:wrap}.interventions button{font-size:12px;padding:7px 10px}.interventions span{font-size:11px;color:var(--muted);margin-left:auto}.reasoning{display:flex;flex-direction:column;gap:13px}.decision{padding:21px 22px;background:#183f31;color:white;min-height:190px;border-color:#183f31}.eyebrow{font-size:11px;letter-spacing:1.3px;margin-bottom:10px;display:flex;align-items:center;gap:7px}.live-dot{width:6px;height:6px;background:#a7dcaa;border-radius:50%}.decision h2{font-size:24px;font-weight:600;letter-spacing:.5px;line-height:1.35;margin-bottom:8px}.decision p{font-size:13px;color:#c5dacc;line-height:1.7;min-height:40px}.next-action{padding-top:12px;margin-top:13px;border-top:1px solid #ffffff22;font-size:12px;display:flex;gap:10px}.next-action span{color:#a8c6b6;white-space:nowrap}.next-action strong{font-weight:400}.evidence{padding:17px 22px}.evidence .panel-heading{margin-bottom:10px}.evidence .panel-heading>span{color:var(--green);font-size:13px;font-variant-numeric:tabular-nums}.evidence-bars{display:flex;gap:6px;margin-bottom:10px}.evidence-bars i{display:block;flex:1;height:5px;background:#e8eee7;border-radius:2px}.evidence-bars i.on{background:#2b9970}.checks{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;font-size:12px}.check{display:flex;align-items:center;gap:7px}.check-icon{display:grid;place-items:center;flex-shrink:0;width:16px;height:16px;border-radius:50%;background:#e9eeea;color:#88998d;font:11px system-ui}.check.good .check-icon{background:#d8efe0;color:#236545}.check.bad .check-icon{background:#faead7;color:#a66b27}.subtle{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6}.result{padding:16px 22px;background:#f9fbf7;min-height:104px;flex:1}.result .eyebrow{color:var(--muted);margin-bottom:6px}.result h2{font-size:16px;margin-bottom:4px}.result p{font-size:12px;color:var(--muted)}.result.found{background:#e9f5eb;border-color:#b8d8c3}.result.found h2{color:#17664d}.result.ended{background:#fff6e9;border-color:#ead1ad}.bottom-row{display:grid;grid-template-columns:1fr 1.15fr;gap:18px;margin-top:16px}.bottom-row .panel{padding:15px 20px}.bottom-row .panel-heading{margin-bottom:10px}.bottom-row h2{font-size:14px}.bottom-row .panel-heading>span{font-size:12px;color:var(--muted)}.view-list{display:flex;gap:8px;flex-wrap:wrap}.view-item{display:flex;gap:7px;align-items:center;border-radius:6px;background:#eff3ed;padding:7px 10px;font-size:12px;color:#5d7566}.view-item strong{font-size:12px}.view-item.done{background:#def0e2;color:#256846}.view-item.current{outline:1px solid #72a18a;background:#f4fbf4}.view-item.blocked{background:#f5e8dc;color:#906232}.coverage p{font-size:11px;color:var(--muted);margin-top:9px}.timeline ol{padding:0;margin:0;list-style:none;display:grid;gap:7px}.timeline li{display:grid;grid-template-columns:41px 1fr;gap:8px;align-items:start;font-size:12px}.timeline li span{font-variant-numeric:tabular-nums;color:#8a9b8c;font-size:11px}.timeline li:first-child{color:var(--green);font-weight:500}.technical{margin-top:15px;background:transparent;font-size:12px;color:var(--muted)}.technical summary{cursor:pointer;width:fit-content}.details-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding:20px;background:white;border:1px solid var(--line);border-radius:10px;margin-top:10px;line-height:1.8}.details-grid p{margin-bottom:12px}.details-grid button{font-size:12px}.details-grid pre{overflow:auto;max-height:230px;margin:0;font:11px/1.6 Consolas,monospace;white-space:pre-wrap}footer{display:flex;justify-content:space-between;gap:10px;margin-top:14px;font-size:10px;letter-spacing:.4px;color:#788c7c}.presentation .bottom-row,.presentation .technical,.presentation .interventions,.presentation .speed-field,.presentation .scenario-note{display:none}.presentation .toolbar{padding:12px 18px}.presentation .stages{margin-top:16px}.presentation .map{max-height:520px}.presentation .map svg{max-height:500px}.presentation .decision{min-height:205px}.presentation .decision h2{font-size:29px}.presentation .decision p{font-size:15px}.presentation .evidence{padding-top:23px;padding-bottom:23px}.presentation .checks{font-size:13px;gap:12px}.presentation .result h2{font-size:20px}.presentation .result p{font-size:14px}@media(min-width:1500px){.app{padding-top:30px}.map{max-height:485px}.map svg{max-height:470px}.decision{min-height:213px}.decision p{font-size:14px}.checks{font-size:13px}.evidence{padding-top:23px;padding-bottom:23px}}@media(max-width:1150px){.app{padding:18px}.toolbar{gap:10px;padding:12px}.scenario-field{min-width:250px}.speed-field{display:none}.record-controls{margin-left:0}.workspace{grid-template-columns:minmax(0,1.4fr) minmax(290px,1fr)}.map-panel{padding:16px}.panel-heading small{display:none}.interventions span{display:none}.legend{gap:8px}.decision{padding:18px}.decision h2{font-size:22px}.checks{gap:6px}.evidence{padding:16px}.result{padding:15px 18px}.scenario-note{min-height:43px}}@media(max-width:790px){.app{padding:14px}.brand h1{font-size:24px}.brand h1 span{font-size:14px}.brand p{font-size:11px}.context .version{display:none}.context .scope{font-size:10px;padding:5px 8px}.workspace{grid-template-columns:1fr}.reasoning{display:grid;grid-template-columns:1fr 1fr}.reasoning .result{grid-column:1/-1}.decision{min-height:210px}.bottom-row{grid-template-columns:1fr}.stages>div{padding:11px 10px;font-size:11px;gap:6px}.stages>div:not(:last-child):after{display:none}.details-grid{grid-template-columns:1fr}.scenario-field{width:100%;flex-basis:100%}.scenario-field select{max-width:none}.toolbar{gap:10px}.record-controls{margin-left:auto}.record-controls button{font-size:12px;padding:10px}.transport button{padding:9px 13px}.context{max-width:145px;text-align:center}.map svg{max-height:380px;min-height:280px}.checks{grid-template-columns:1fr}.map-footer{align-items:flex-start}.position-label{display:none}footer{flex-direction:column;font-size:9px}.presentation .reasoning{display:grid}.presentation .decision h2{font-size:22px}.presentation .decision p{font-size:13px}}@media(max-width:440px){.brandmark{display:none}.context{max-width:108px}.masthead{margin-bottom:16px}.brand h1 span{margin-left:3px}.toolbar{padding:10px}.record-controls{margin-left:0;flex:1;justify-content:flex-end}.transport{gap:5px}.transport button{padding:8px 10px;font-size:12px}.primary{min-width:75px!important}.record-controls #focus{display:none}.reasoning{grid-template-columns:1fr}.reasoning .result{grid-column:auto}.checks{grid-template-columns:1fr 1fr}.decision{min-height:0}.map{min-height:230px}.map svg{min-height:230px}.legend{font-size:10px;gap:7px}.legend i{width:8px;height:8px}.interventions button{font-size:11px}.stages b{display:none}.scenario-note{font-size:11px}.map-panel{padding:12px}.panel-heading h2{font-size:15px}}
+button[aria-pressed=true]:hover{background:#315a47;color:white}
+@media(min-width:791px) and (max-height:850px){.presentation .app{padding:16px 24px}.presentation .masthead{margin-bottom:16px}.presentation .decision{min-height:164px;padding:16px 18px}.presentation .decision h2{font-size:23px}.presentation .decision p{font-size:13px;min-height:32px}.presentation .next-action{padding-top:8px;margin-top:8px}.presentation .evidence{padding:14px 18px}.presentation .checks{font-size:12px;gap:7px}.presentation .result{padding:12px 18px;min-height:85px}.presentation .map{max-height:390px}.presentation .map svg{max-height:360px;min-height:280px}.presentation .map-panel{padding:16px 18px 12px}.presentation .result h2{font-size:17px}.presentation .result p{font-size:12px}}
+/* Plain working layout */
+:root{--ink:#29332e;--muted:#6c7570;--paper:#f7f8f7;--line:#dce1dd}
+.app{max-width:1500px}.masthead{margin-bottom:18px}.brand h1{font-size:23px;letter-spacing:0;font-weight:600}.brand h1 span{font-size:18px}.brand p{font-size:12px;letter-spacing:0;margin-top:2px}.scope{background:none;padding:0;color:#6c7570;border-radius:0}.version{font-size:12px;font-weight:400;color:#89918c}.context{gap:14px}
+button,select{border-radius:4px}button.primary{background:#344c40;border-color:#344c40}button.demo{background:#fff;border-color:#aebeb3;font-weight:500;min-width:68px}.toolbar,.panel,.details-grid{border-radius:4px}.toolbar{padding:12px 16px}.stages{border-radius:0;background:transparent;border-bottom:1px solid var(--line)}.stages>div{padding:10px 15px}.stages>div.active{background:transparent;color:#245f43;box-shadow:inset 0 -2px #367a55}.stages>div.active:after{color:#adbbb1}.stages b{font-weight:400}
+.decision{background:#fff;color:var(--ink);border-color:var(--line);min-height:178px}.decision h2{font-size:21px;letter-spacing:0;font-weight:500}.decision p{color:var(--muted)}.eyebrow{font-size:12px;letter-spacing:0;color:var(--muted)}.next-action{border-color:#e7ebe8}.next-action span{color:var(--muted)}.next-action strong{color:var(--ink)}.state-pill{border-radius:3px;background:#edf2ee}.result{background:#fff}.result.found{background:#fff;border-color:#a8c8b4;border-left:3px solid #54876b}.result.ended{background:#fff;border-color:#d9c5a9;border-left:3px solid #b99058}.map{border-radius:2px}.view-item{border-radius:2px;background:#f0f3f0}.evidence-bars i{border-radius:0}.check-icon{border-radius:3px}.panel-heading h2{font-weight:500}.result h2{font-weight:500}footer{font-size:11px;letter-spacing:0}
+.presentation .decision h2{font-size:23px}.presentation .decision p{font-size:14px}.presentation .result h2{font-size:18px}.presentation .masthead{margin-bottom:16px}@media(min-width:791px) and (max-height:850px){.presentation .decision h2{font-size:21px}.presentation .decision p{font-size:13px}.presentation .result h2{font-size:17px}}
+.map svg [data-cell]{cursor:default}
+/* Blue and white presentation view with the camera and spoken feedback visible. */
+:root{--ink:#18283e;--muted:#52647b;--paper:#fff;--line:#d8e3f0;--green:#1456c0;--mint:#eff5fc;--red:#b56a36;--map:#f7faff}
+body{background:#fff;color:var(--ink)}.toolbar{background:#fff;border-color:var(--line)}.scope{color:#52647b}.stages>div.active{color:#1456c0;box-shadow:inset 0 -2px #1456c0}.workspace{grid-template-columns:minmax(0,1.55fr) minmax(410px,1fr);gap:14px}.panel{border-color:var(--line)}.map{background:#f7faff}.map svg [data-cell]{cursor:default}.decision{min-height:0;padding:13px 17px}.decision h2{font-size:20px;font-weight:600}.decision p{min-height:0;font-size:12px}.next-action{margin-top:7px;padding-top:7px}.result-inline{display:grid;grid-template-columns:92px 1fr;align-items:baseline;gap:3px 8px;border-top:1px solid var(--line);margin-top:8px;padding-top:7px;font-size:12px}.result-inline>span{grid-row:span 2;color:var(--muted)}.result-inline strong{font-size:15px;font-weight:600}.result-inline p{grid-column:2;font-size:11px;color:var(--muted)}.result-inline.found strong{color:#1456c0}.result-inline.ended strong{color:#9b5a24}.evidence{padding:12px 16px}.evidence .panel-heading{margin-bottom:7px}.vision-frame{display:grid;grid-template-columns:minmax(115px,.8fr) 1.2fr;align-items:stretch;gap:10px}.vision-room{height:64px;position:relative;overflow:hidden;background:linear-gradient(90deg,#edf3fb 0 9%,#d9e5f3 9% 10%,#f7faff 10% 90%,#d9e5f3 90% 91%,#edf3fb 91%);border:1px solid #d8e3f0}.vision-table{position:absolute;left:39%;top:28%;width:31%;height:46%;border:1px solid #9fb1c8;background:#fff}.vision-object{display:none;position:absolute;z-index:2;left:50%;top:40%;font-size:10px;color:#18283e;background:white;padding:1px 3px}.vision-object.visible{display:block}.vision-box{display:none;position:absolute;z-index:3;left:47%;top:28%;width:25px;height:24px;border:2px solid #1456c0}.vision-box.visible{display:block}.vision-box-label{display:none;position:absolute;z-index:4;left:46%;top:3%;padding:1px 4px;background:#1456c0;color:white;font-size:9px}.vision-box-label.visible{display:block}.vision-caption{display:flex;flex-direction:column;justify-content:center;gap:5px;font-size:11px;color:var(--muted)}.vision-caption strong{color:#18283e;font-size:12px}.vision-output{margin:5px 0!important;font-size:11px!important;line-height:1.4}.evidence-bars{margin:4px 0 6px}.evidence-bars i.on{background:#1456c0}.checks{gap:4px 9px}.check{gap:5px}.check-icon{border-radius:2px}.evidence-note{margin-top:5px!important;font-size:10px!important}.reasoning{gap:9px}.speech{padding:11px 16px}.speech .panel-heading{margin-bottom:6px}.speech .panel-heading>span{font-size:10px;color:var(--muted)}.speech-transcript,.speech-reply{display:flex;align-items:center;gap:9px;font-size:11px}.speech-transcript>span,.speech-reply>div>span{color:var(--muted)}.speech-transcript strong,.speech-reply>div>strong{font-weight:500;color:var(--ink)}.speech-reply{align-items:flex-start;margin-top:4px}.speech-reply>div{display:flex;flex-direction:column;gap:1px}.speaker-mark{display:grid;place-items:center;width:20px;height:20px;color:#1456c0;font-size:18px}.speech-actions{display:flex;gap:6px;margin-top:7px}.speech-actions button{flex:1;padding:6px 7px;font-size:11px;border-radius:3px}.speech-actions button:disabled{opacity:.45}.speech-note{margin-top:5px!important;font-size:9px!important;line-height:1.35}.reasoning .result{display:none}.result-inline{display:grid}.decision{flex:none}.vision-room{min-width:110px}
+@media(min-width:791px) and (max-height:850px){.presentation .app{padding:12px 20px}.presentation .masthead{margin-bottom:10px}.presentation .toolbar{padding:8px 14px}.presentation .stages{margin:8px 0 10px}.presentation .map-panel{padding:12px 14px 10px}.presentation .map{min-height:280px;max-height:340px}.presentation .map svg{min-height:280px;max-height:325px}.presentation .evidence{padding:10px 14px}.presentation .decision{padding:11px 15px}.presentation .speech{padding:9px 14px}.presentation .reasoning{gap:7px}.presentation .checks{font-size:10px}.presentation footer{margin-top:7px}}
+@media(max-width:1150px){.workspace{grid-template-columns:minmax(0,1.15fr) minmax(360px,1fr)}.vision-frame{grid-template-columns:minmax(105px,.7fr) 1fr}}
+@media(max-width:790px){.workspace{grid-template-columns:1fr}.reasoning{display:flex}.vision-frame{grid-template-columns:minmax(110px,.8fr) 1.2fr}.speech-actions button{font-size:12px}.presentation .reasoning{display:flex}}
+</style>
+</head>
+<body class="presentation">
+<div class="app">
+  <header class="masthead"><div class="brand"><div><h1>寻迹 <span>/ 导航与寻物</span></h1><p>任务逻辑原型</p></div></div><div class="context"><span class="scope">地图、视觉与口令均为模拟输入</span><span class="version">v2.1</span></div></header>
+  <section class="toolbar" aria-label="演示控制">
+    <div class="scenario-field"><label for="scenario">选择任务场景</label><select id="scenario"></select></div>
+    <div class="transport"><button id="play" class="primary">开始任务</button><button id="step">单步</button><button id="reset" aria-label="重置当前任务">重置</button></div>
+    <div class="record-controls"><button id="demo" class="demo">演示</button></div>
+  </section>
+  <nav class="stages" aria-label="任务阶段"><div data-stage="plan"><b>01</b><span>选择观察点</span></div><div data-stage="navigate"><b>02</b><span>导航与避障</span></div><div data-stage="observe"><b>03</b><span>候选复核</span></div><div data-stage="report"><b>04</b><span>结果报告</span></div></nav>
+  <main class="workspace">
+    <section class="map-panel panel"><div class="panel-heading"><h2>地图 <small>测试场景，栅格未标定尺寸</small></h2><span id="live-state" class="state-pill">未开始</span></div><div id="map" class="map" aria-label="任务地图"></div><div class="map-footer"><div class="legend"><span><i class="robot-key"></i>机器人</span><span><i class="route-key"></i>规划路径</span><span><i class="view-key"></i>观察点</span><span><i class="block-key"></i>新增障碍</span></div><div id="position-label" class="position-label"></div></div></section>
+    <aside class="reasoning">
+      <section class="decision panel" aria-live="polite"><div class="eyebrow">任务状态</div><h2 id="decision-title">未开始</h2><p id="decision-body">选择场景后开始任务。</p><div class="next-action"><span>下一步</span><strong id="next-action">开始任务</strong></div><div id="result-panel" class="result-inline"><span>任务报告</span><strong id="result-title">待完成</strong><p id="result-body">目标：杯子</p></div></section>
+      <section class="evidence panel"><div class="panel-heading"><h2>视觉输入与目标复核</h2><span id="evidence-count">0 / 3 帧</span></div><div class="vision-frame" aria-label="合成相机帧示意"><div class="vision-room"><div class="vision-table"></div><div id="vision-object" class="vision-object">杯子</div><div id="vision-box" class="vision-box"></div><span id="vision-box-label" class="vision-box-label">等待候选</span></div><div class="vision-caption"><strong id="vision-detection">等待观察帧</strong><span id="vision-caption">合成检测输入</span></div></div><p id="vision-output" class="subtle">到达观察点后读取候选帧。</p><div id="evidence-bars" class="evidence-bars" aria-label="连续有效帧数"></div><div id="evidence-checks" class="checks"></div><p id="evidence-note" class="subtle">等待检测帧。</p></section>
+      <section class="speech panel"><div class="panel-heading"><h2>语音交互</h2><span>口令逻辑模拟</span></div><div class="speech-transcript"><span>指令</span><strong id="speech-input">等待输入</strong></div><div class="speech-reply"><span class="speaker-mark" aria-hidden="true">◖</span><div><span>系统播报</span><strong id="speech-output">点击口令，预览任务响应</strong></div></div><div class="speech-actions"><button id="voice-search" type="button">开始找杯子</button><button id="voice-status" type="button">询问状态</button><button id="voice-report" type="button" disabled>播报位置</button></div><p class="subtle speech-note">按钮模拟语音输入；浏览器提供语音播报时可朗读。真实识别与播报设备待接入。</p></section>
+    </aside>
+  </main>
+  <footer><span>RoboCup 家庭组 · 导航与寻物</span><span>当前使用模拟数据，实机测试待完成。</span></footer>
+</div>
+<script>/**
+ * Offline, deterministic mission-logic prototype using synthetic frames and a 2D grid.
+ * No ROS, physical robot, real perception, dynamics, or physical safety validation.
+ */
+const EVIDENCE_SCOPE = '合成输入的二维任务逻辑测试；不是实体机器人或真实视觉性能验证';
+const copy = value => structuredClone(value);
+const key = p => `${p[0]},${p[1]}`;
+const same = (a, b) => a[0] === b[0] && a[1] === b[1];
+const finitePoint = p => Array.isArray(p) && p.length === 2 && p.every(Number.isFinite);
+const integerPoint = p => finitePoint(p) && p.every(Number.isInteger);
+const distance = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
+const DEFAULT_CONFIG = Object.freeze({ tickMs: 100, maxSteps: 180, maxTimeMs: 18000,
+  minConfidence: 0.8, candidateConfidence: 0.35, minFrames: 3,
+  maxFrameAgeMs: 500, maxFrameGapMs: 400, positionTolerance: 0.25,
+  depthTolerance: 0.2, minDepth: 0.2, maxDepth: 4.0 });
+const EVENT_TEXT = { MISSION_STARTED: '新任务开始，覆盖记录与证据已清空', PAUSE: '任务暂停，保留位置和覆盖记录',
+  RESUME: '继续任务，从暂停位置恢复', OBSTACLE_ADDED: '地图收到新的合成障碍', OBSTACLE_CLEARED: '移除指定合成障碍',
+  STOP: '已停止栅格移动，下一步重新规划', REPLAN_STARTED: '开始根据更新后的地图重新规划',
+  REPLAN: '重规划完成', PATH_PLANNED: '已计算到观察点的路径', VIEW_UNREACHABLE: '观察点不可达，标记后继续选择',
+  OBSERVE: '已到达观察点，开始读取合成检测帧', VIEW_COMPLETED: '当前观察点已检查，尚未确认目标',
+  CACHE_INVALIDATED: '旧位置没有可信目标，缓存失效', CHANGE_VIEW: '使用一次换视角预算，前往备用观察点',
+  MOVE: '沿规划路径移动一个格点', WAIT_FOR_FRAME: '等待合成帧的采集时间', FRAME_REJECTED: '当前帧未通过复核，连续证据清零',
+  FRAME_ACCEPTED: '当前帧通过复核', EVIDENCE_RESET: '证据连续性不满足，重新开始计数', EVIDENCE_EXPIRED: '此前证据已过期，不再用于确认',
+  TARGET_VERIFIED: '连续证据达到要求，准备生成报告', REPORT: '依据有效证据生成目标报告', MISSION_FINISHED: '本次任务结束' };
+
+function astar(grid, start, goal) {
+  const valid = p => integerPoint(p) && p[0] >= 0 && p[1] >= 0 && p[0] < grid.width && p[1] < grid.height;
+  if (!valid(start) || !valid(goal)) return null;
+  const blocked = new Set((grid.blocked ?? []).map(key));
+  if (blocked.has(key(start)) || blocked.has(key(goal))) return null;
+  const open = [{ p: [...start], g: 0, f: distance(start, goal) }];
+  const best = new Map([[key(start), 0]]), parent = new Map();
+  while (open.length) {
+    open.sort((a, b) => a.f - b.f || a.g - b.g || a.p[1] - b.p[1] || a.p[0] - b.p[0]);
+    const item = open.shift(), id = key(item.p);
+    if (item.g !== best.get(id)) continue;
+    if (same(item.p, goal)) {
+      const path = [item.p];
+      while (parent.has(key(path[0]))) path.unshift(parent.get(key(path[0])));
+      return path.map(p => [...p]);
+    }
+    for (const [dx, dy] of [[1, 0], [0, 1], [-1, 0], [0, -1]]) {
+      const p = [item.p[0] + dx, item.p[1] + dy], nextId = key(p);
+      if (!valid(p) || blocked.has(nextId) || item.g + 1 >= (best.get(nextId) ?? Infinity)) continue;
+      best.set(nextId, item.g + 1); parent.set(nextId, item.p);
+      open.push({ p, g: item.g + 1, f: item.g + 1 + distance(p, goal) });
+    }
+  }
+  return null;
+}
+
+class Mission {
+  constructor(spec) {
+    if (!spec || !spec.grid || !Array.isArray(spec.views)) throw new TypeError('Mission requires grid and views');
+    this.spec = copy(spec);
+    this.config = { ...DEFAULT_CONFIG, ...spec.config };
+    for (const field of Object.keys(DEFAULT_CONFIG)) if (!Number.isFinite(this.config[field])) throw new TypeError(`Invalid config ${field}`);
+    if (this.config.tickMs <= 0 || this.config.maxSteps < 0 || this.config.maxTimeMs < 0 || this.config.minFrames < 1 || !Number.isInteger(this.config.minFrames)) throw new TypeError('Invalid mission budget or minFrames');
+    if (!Number.isInteger(spec.grid.width) || !Number.isInteger(spec.grid.height) || spec.grid.width < 1 || spec.grid.height < 1) throw new TypeError('Invalid grid size');
+    this.grid = { width: spec.grid.width, height: spec.grid.height, blocked: copy(spec.grid.blocked ?? []) };
+    this.inBounds = p => integerPoint(p) && p[0] >= 0 && p[1] >= 0 && p[0] < this.grid.width && p[1] < this.grid.height;
+    if (!this.inBounds(spec.start) || this.grid.blocked.some(p => !this.inBounds(p))) throw new TypeError('Grid positions must be valid integer cells');
+    this.views = spec.views.map(v => ({ ...copy(v), room: v.room ?? '未命名区域', isAlternate: false, rootId: v.id }));
+    this.allViews = [];
+    const ids = new Set();
+    for (const v of this.views) {
+      this.allViews.push(v);
+      if (v.alternate) {
+        v.alternate = { ...v.alternate, room: v.alternate.room ?? v.room, isAlternate: true, rootId: v.id };
+        this.allViews.push(v.alternate);
+      }
+    }
+    for (const v of this.allViews) {
+      if (typeof v.id !== 'string' || !v.id || ids.has(v.id) || !this.inBounds(v.position) || !Array.isArray(v.frames)) throw new TypeError('Each view needs a unique id, valid position and frames');
+      ids.add(v.id);
+    }
+    this.order = this.views.map(v => v.id);
+    if (spec.cachedViewId && this.order.includes(spec.cachedViewId)) this.order = [spec.cachedViewId, ...this.order.filter(id => id !== spec.cachedViewId)];
+    this.targetLabel = spec.targetLabel ?? 'cup';
+    this.position = [...spec.start]; this.path = []; this.current = null;
+    this.state = 'SELECT_VIEW'; this.status = 'running'; this.clockMs = 0;
+    this.visited = new Set(); this.unreachable = new Set(); this.alternateUsed = new Set();
+    this.seenFrameIds = new Set(); this.seenFrameTimes = new Set();
+    this.trace = []; this.events = []; this.report = null; this.reason = '准备选择观察点';
+    this.frameIndex = 0; this.observationStartMs = null; this.run = []; this.candidateSeen = false; this.readyToReport = false;
+    this.pendingObstacle = false; this.savedState = null;
+    this.metrics = { steps: 0, elapsedMs: 0, navigationMoves: 0, planCount: 0, replanCount: 0, stopCount: 0,
+      observationVisits: 0, framesSeen: 0, acceptedFrames: 0, rejectedFrames: 0,
+      viewSwitches: 0, visitedCount: 0, unreachableCount: 0, reportCount: 0 };
+    this.evidence = this.emptyEvidence('等待候选');
+    this.emit('MISSION_STARTED', { position: this.position, targetLabel: this.targetLabel, evidenceScope: EVIDENCE_SCOPE });
+  }
+
+  emptyEvidence(reason) {
+    return { count: 0, required: this.config.minFrames, confidence: null, depth: null, targetXY: null,
+      positionStable: null, validDepth: null, reason, frameId: null, frameTimestampMs: null, ageMs: null };
+  }
+  emit(type, details = {}) {
+    const event = { type, step: this.metrics.steps, timeMs: this.clockMs, message: EVENT_TEXT[type] ?? type, ...copy(details) };
+    this.events.push(event); this.trace.push(event);
+  }
+  isTerminal() { return !['running', 'paused'].includes(this.status); }
+  finish(status, reason) {
+    this.status = status; this.state = status.toUpperCase(); this.reason = reason;
+    this.path = [];
+    this.emit('MISSION_FINISHED', { status, reason, position: this.position });
+  }
+  viewSnapshot(v) {
+    return { id: v.id, position: [...v.position], room: v.room, isAlternate: v.isAlternate, rootId: v.rootId,
+      status: this.unreachable.has(v.id) ? 'unreachable' : this.visited.has(v.id) ? 'visited' : this.current?.id === v.id ? 'current' : 'unvisited' };
+  }
+  snapshot() {
+    const metrics = { ...this.metrics, elapsedMs: this.clockMs, visitedCount: this.visited.size, unreachableCount: this.unreachable.size };
+    return copy({ specId: this.spec.id ?? 'mission', name: this.spec.name ?? '', evidenceScope: EVIDENCE_SCOPE,
+      state: this.state, status: this.status, reason: this.reason, clockMs: this.clockMs, step: this.metrics.steps,
+      grid: this.grid, position: this.position, path: this.path, views: this.allViews.map(v => this.viewSnapshot(v)),
+      visited: [...this.visited], unreachable: [...this.unreachable], currentView: this.current ? this.viewSnapshot(this.current) : null,
+      events: this.events, trace: this.trace, evidence: this.evidence, report: this.report, metrics });
+  }
+  pause() {
+    this.events = [];
+    if (this.status !== 'running') return this.snapshot();
+    this.savedState = this.state; this.state = 'PAUSED'; this.status = 'paused';
+    // Coverage and frame cursor survive; a verification streak does not bridge a pause.
+    this.run = []; this.readyToReport = false; this.evidence = this.emptyEvidence('暂停后重新积累连续证据');
+    this.emit('PAUSE', { position: this.position, retainedVisited: [...this.visited] });
+    return this.snapshot();
+  }
+  resume() {
+    this.events = [];
+    if (this.status !== 'paused') return this.snapshot();
+    this.state = this.savedState ?? 'SELECT_VIEW'; this.savedState = null; this.status = 'running';
+    this.emit('RESUME', { position: this.position, retainedVisited: [...this.visited] });
+    return this.snapshot();
+  }
+  injectObstacle(position) {
+    this.events = [];
+    if (!this.inBounds(position)) throw new TypeError('Obstacle must be inside the grid');
+    if (this.isTerminal()) return this.snapshot();
+    if (!this.grid.blocked.some(p => same(p, position))) {
+      this.grid.blocked.push([...position]);
+      this.emit('OBSTACLE_ADDED', { position });
+      this.pendingObstacle = true;
+    }
+    return this.snapshot();
+  }
+  clearObstacle(position) {
+    this.events = [];
+    if (!this.inBounds(position)) throw new TypeError('Obstacle must be inside the grid');
+    if (this.isTerminal()) return this.snapshot();
+    const before = this.grid.blocked.length;
+    this.grid.blocked = this.grid.blocked.filter(p => !same(p, position));
+    if (this.grid.blocked.length !== before) this.emit('OBSTACLE_CLEARED', { position });
+    return this.snapshot();
+  }
+
+  planForCurrent(isReplan = false) {
+    this.metrics.planCount++;
+    if (isReplan) this.metrics.replanCount++;
+    this.path = astar(this.grid, this.position, this.current.position) ?? [];
+    this.emit(isReplan ? 'REPLAN' : 'PATH_PLANNED', { viewId: this.current.id, available: this.path.length > 0, path: this.path });
+    if (!this.path.length) {
+      this.unreachable.add(this.current.id);
+      this.emit('VIEW_UNREACHABLE', { viewId: this.current.id, position: this.current.position });
+      this.reason = `观察点 ${this.current.id} 不可达，继续检查剩余点`;
+      this.current = null; this.state = 'SELECT_VIEW'; return;
+    }
+    this.state = 'NAVIGATE'; this.reason = `前往观察点 ${this.current.id}`;
+  }
+  chooseNext() {
+    const id = this.order.find(id => !this.visited.has(id) && !this.unreachable.has(id));
+    if (!id) {
+      if (this.unreachable.size) this.finish('blocked', '存在不可达观察点，搜索覆盖不完整');
+      else this.finish('not_found', '已完成可用观察点搜索，未形成可信目标证据');
+      return;
+    }
+    this.current = this.views.find(v => v.id === id);
+    this.evidence = this.emptyEvidence('导航到观察点后采集证据');
+    this.planForCurrent();
+  }
+  arrive() {
+    this.path = [];
+    this.metrics.observationVisits++;
+    this.frameIndex = 0; this.observationStartMs = this.clockMs; this.run = []; this.candidateSeen = false; this.readyToReport = false;
+    this.evidence = this.emptyEvidence('已到达，等待合成帧');
+    this.state = 'OBSERVE'; this.reason = `在 ${this.current.id} 采集候选证据`;
+    this.emit('OBSERVE', { viewId: this.current.id, position: this.position, observationStartMs: this.observationStartMs });
+  }
+  finishObservation() {
+    const prior = this.current;
+    this.visited.add(prior.id);
+    this.emit('VIEW_COMPLETED', { viewId: prior.id, candidateSeen: this.candidateSeen, confirmed: false });
+    if (prior.id === this.spec.cachedViewId) this.emit('CACHE_INVALIDATED', { viewId: prior.id, reason: '旧位置未获得可信目标证据' });
+    if (this.candidateSeen && prior.alternate && !this.alternateUsed.has(prior.rootId)) {
+      this.alternateUsed.add(prior.rootId); this.metrics.viewSwitches++;
+      this.emit('CHANGE_VIEW', { from: prior.id, to: prior.alternate.id, budgetUsed: 1, budgetLimit: 1 });
+      this.current = prior.alternate;
+      this.run = []; this.readyToReport = false;
+      this.evidence = this.emptyEvidence('切换视角；新视角重新积累证据');
+      this.planForCurrent(); return;
+    }
+    this.current = null; this.run = []; this.readyToReport = false;
+    this.state = 'SELECT_VIEW'; this.reason = '当前点未确认目标，选择下一个观察点';
+  }
+  rejectFrame(frame, timestamp, ageMs, reason, validDepth = false, positionStable = false) {
+    this.run = []; this.readyToReport = false; this.metrics.rejectedFrames++;
+    this.evidence = { count: 0, required: this.config.minFrames, confidence: frame.confidence ?? null, depth: frame.depth ?? null,
+      targetXY: frame.targetXY ?? null, positionStable, validDepth, reason,
+      frameId: frame.id, frameTimestampMs: timestamp, ageMs };
+    this.emit('FRAME_REJECTED', { viewId: this.current.id, frameId: frame.id, timestampMs: timestamp, ageMs, reason, count: 0 });
+  }
+  consumeFrame() {
+    const freshRun = this.run.filter(f => this.clockMs - f.timestampMs <= this.config.maxFrameAgeMs);
+    if (freshRun.length !== this.run.length) {
+      this.emit('EVIDENCE_EXPIRED', { removedFrameIds: this.run.filter(f => !freshRun.includes(f)).map(f => f.id) });
+      this.run = freshRun; this.readyToReport = this.run.length >= this.config.minFrames;
+      this.evidence = { ...this.evidence, count: this.run.length, reason: 'EVIDENCE_EXPIRED' };
+    }
+    if (this.readyToReport) {
+      const n = this.run.length;
+      this.report = { label: this.targetLabel, room: this.current.room, viewId: this.current.id,
+        targetXY: [0, 1].map(axis => this.run.reduce((sum, f) => sum + f.targetXY[axis], 0) / n),
+        depth: this.run.reduce((sum, f) => sum + f.depth, 0) / n,
+        confidence: Math.min(...this.run.map(f => f.confidence)), frameIds: this.run.map(f => f.id), timeMs: this.clockMs,
+        message: `在${this.current.room}的观察点 ${this.current.id} 附近发现目标${this.targetLabel === 'cup' ? '杯子' : this.targetLabel}`,
+        evidenceScope: EVIDENCE_SCOPE };
+      this.visited.add(this.current.id); this.metrics.reportCount++;
+      this.emit('REPORT', { report: this.report }); this.finish('found', '连续帧、深度与位置复核通过'); return;
+    }
+    if (this.frameIndex >= this.current.frames.length) { this.finishObservation(); return; }
+    const raw = this.current.frames[this.frameIndex];
+    const frame = { ...raw, id: raw.id ?? `${this.current.id}:frame:${this.frameIndex}` };
+    const timestamp = Object.hasOwn(raw, 'timestampMs') ? raw.timestampMs : this.observationStartMs + (raw.offsetMs ?? this.frameIndex * this.config.tickMs);
+    if (Number.isFinite(timestamp) && timestamp > this.clockMs) {
+      this.reason = '等待合成帧的采集时间'; this.emit('WAIT_FOR_FRAME', { viewId: this.current.id, frameId: frame.id, timestampMs: timestamp }); return;
+    }
+    this.frameIndex++; this.metrics.framesSeen++;
+    const ageMs = this.clockMs - timestamp;
+    const timeKey = `${this.current.id}:${timestamp}`;
+    const duplicate = this.seenFrameIds.has(frame.id) || this.seenFrameTimes.has(timeKey);
+    this.seenFrameIds.add(frame.id); this.seenFrameTimes.add(timeKey);
+    const validDepth = Number.isFinite(frame.depth) && frame.depth >= this.config.minDepth && frame.depth <= this.config.maxDepth;
+    const validPosition = finitePoint(frame.targetXY);
+    // Only unexpired, unique target evidence may consume the one alternate-view budget.
+    if (!duplicate && Number.isFinite(ageMs) && ageMs >= 0 && ageMs <= this.config.maxFrameAgeMs && frame.label === this.targetLabel && frame.confidence >= this.config.candidateConfidence) this.candidateSeen = true;
+    let invalid = null;
+    if (duplicate) invalid = 'DUPLICATE_FRAME';
+    else if (!Number.isFinite(timestamp) || ageMs < 0 || ageMs > this.config.maxFrameAgeMs) invalid = 'STALE_OR_INVALID_TIMESTAMP';
+    else if (frame.label !== this.targetLabel) invalid = 'TARGET_MISMATCH';
+    else if (!Number.isFinite(frame.confidence) || frame.confidence < this.config.minConfidence) invalid = 'LOW_CONFIDENCE';
+    else if (!validDepth) invalid = 'INVALID_DEPTH';
+    else if (!validPosition) invalid = 'INVALID_POSITION';
+    else if (this.run.length && timestamp <= this.run.at(-1).timestampMs) invalid = 'NON_MONOTONIC_TIMESTAMP';
+    if (invalid) { this.rejectFrame(frame, timestamp, ageMs, invalid, validDepth); this.state = 'VERIFY'; this.reason = invalid; return; }
+    let resetReason = null;
+    if (this.run.length && timestamp - this.run.at(-1).timestampMs > this.config.maxFrameGapMs) resetReason = 'FRAME_GAP_TOO_LARGE';
+    const combined = [...this.run, frame];
+    const positionsStable = combined.every(a => combined.every(b => Math.hypot(a.targetXY[0] - b.targetXY[0], a.targetXY[1] - b.targetXY[1]) <= this.config.positionTolerance));
+    const depthsStable = Math.max(...combined.map(f => f.depth)) - Math.min(...combined.map(f => f.depth)) <= this.config.depthTolerance;
+    if (!positionsStable) resetReason = 'POSITION_INCONSISTENT';
+    if (!depthsStable) resetReason = 'DEPTH_INCONSISTENT';
+    if (resetReason) { this.run = []; this.emit('EVIDENCE_RESET', { viewId: this.current.id, reason: resetReason }); }
+    this.run.push({ ...frame, timestampMs: timestamp }); this.metrics.acceptedFrames++;
+    this.evidence = { count: this.run.length, required: this.config.minFrames, confidence: frame.confidence, depth: frame.depth,
+      targetXY: frame.targetXY, positionStable: true, validDepth: true, reason: resetReason ?? 'VALID_CONTINUOUS_EVIDENCE',
+      frameId: frame.id, frameTimestampMs: timestamp, ageMs };
+    this.emit('FRAME_ACCEPTED', { viewId: this.current.id, frameId: frame.id, timestampMs: timestamp, ageMs,
+      confidence: frame.confidence, depth: frame.depth, targetXY: frame.targetXY, count: this.run.length, resetReason });
+    this.state = 'VERIFY'; this.reason = `连续有效证据 ${this.run.length}/${this.config.minFrames}`;
+    if (this.run.length >= this.config.minFrames) { this.readyToReport = true; this.emit('TARGET_VERIFIED', { viewId: this.current.id, frameIds: this.run.map(f => f.id) }); }
+  }
+  step() {
+    this.events = [];
+    if (this.status !== 'running') return this.snapshot();
+    if (this.metrics.steps >= this.config.maxSteps || this.clockMs + this.config.tickMs > this.config.maxTimeMs) {
+      this.finish('budget_exceeded', '已达合成时间或步数预算，未继续执行'); return this.snapshot();
+    }
+    this.metrics.steps++; this.clockMs += this.config.tickMs;
+    if (this.pendingObstacle && !['STOPPED', 'REPLAN'].includes(this.state)) {
+      this.pendingObstacle = false; this.metrics.stopCount++;
+      this.run = []; this.readyToReport = false;
+      this.evidence = this.emptyEvidence('障碍更新后停止并重新规划');
+      this.state = 'STOPPED'; this.reason = '收到障碍更新，已停止栅格移动';
+      this.emit('STOP', { position: this.position, reason: 'OBSTACLE_UPDATE' }); return this.snapshot();
+    }
+    if (this.state === 'STOPPED') { this.state = 'REPLAN'; this.emit('REPLAN_STARTED', { position: this.position }); return this.snapshot(); }
+    if (this.state === 'REPLAN') {
+      this.pendingObstacle = false;
+      if (this.current) this.planForCurrent(true);
+      else { this.emit('REPLAN', { available: null, reason: 'NO_CURRENT_VIEW' }); this.state = 'SELECT_VIEW'; }
+      return this.snapshot();
+    }
+    if (this.state === 'SELECT_VIEW') this.chooseNext();
+    else if (this.state === 'NAVIGATE') {
+      if (same(this.position, this.current.position)) this.arrive();
+      else if (this.path.length >= 2) {
+        const next = this.path[1];
+        if (this.grid.blocked.some(p => same(p, next))) {
+          this.pendingObstacle = true; this.metrics.stopCount++; this.state = 'STOPPED';
+          this.emit('STOP', { position: this.position, reason: 'NEXT_CELL_BLOCKED' });
+        } else {
+          const from = [...this.position]; this.position = [...next]; this.path = this.path.slice(1); this.metrics.navigationMoves++;
+          this.emit('MOVE', { from, position: this.position, viewId: this.current.id });
+        }
+      } else { this.unreachable.add(this.current.id); this.emit('VIEW_UNREACHABLE', { viewId: this.current.id }); this.current = null; this.state = 'SELECT_VIEW'; }
+    } else if (this.state === 'OBSERVE' || this.state === 'VERIFY') this.consumeFrame();
+    return this.snapshot();
+  }
+}
+
+const createMission = spec => new Mission(spec);
+
+
+// All frames and events below are synthetic fixtures, not learned perception outputs.
+const target = (prefix, confidence = 0.93, depth = 1.2, count = 3, targetXY = [8.5, 3.5]) => Array.from({ length: count }, (_, i) => ({ id: `${prefix}-${i}`, offsetMs: i * 100, label: 'cup', confidence, depth, targetXY: [...targetXY] }));
+const empty = prefix => [{ id: `${prefix}-empty`, offsetMs: 0, label: 'none', confidence: 0, depth: null, targetXY: null }];
+const grid = (width = 11, height = 7, blocked = []) => ({ width, height, blocked });
+const config = { tickMs: 100, maxSteps: 180, maxTimeMs: 18000, minFrames: 3, maxFrameAgeMs: 500, maxFrameGapMs: 400 };
+const v = (id, position, frames, room = '客厅') => ({ id, position, frames, room });
+const expected = { integrated: 'found', 'single-false': 'not_found', 'missing-depth': 'not_found', 'cache-moved': 'found', 'all-blocked': 'blocked', budget: 'budget_exceeded', 'skip-unreachable': 'found', 'stale-duplicate': 'not_found' };
+const make = (id, name, description, spec, script = []) => ({ id, name, description, expectedStatus: expected[id], evidenceScope: '合成输入 / 二维任务逻辑执行', spec: { id, name, targetLabel: 'cup', config: { ...config }, ...spec }, script });
+
+const SCENARIOS = [
+  make('integrated', '综合场景：绕障与寻物', '入口观察后前往客厅，途中添加障碍；低置信候选换视角复核，连续三帧通过后报告。', {
+    grid: grid(11, 7, [[5, 0], [5, 1], [5, 2], [5, 4], [5, 6]]), start: [1, 3],
+    views: [v('入口', [2, 3], empty('entry'), '入口'), { ...v('客厅A', [8, 3], target('low', 0.56)), alternate: v('客厅B', [8, 4], target('clear', 0.93)) }],
+  }, [{ atStep: 7, action: 'injectObstacle', position: [5, 3] }]),
+  make('single-false', '单帧误检', '只有一帧检测到目标，后续标签不一致，复核不通过。', {
+    grid: grid(7, 5), start: [1, 2], views: [v('观察A', [4, 2], [...target('single', 0.95, 1.2, 1), { ...empty('none-1')[0], offsetMs: 100 }, { ...empty('none-2')[0], offsetMs: 200 }])],
+  }),
+  make('missing-depth', '深度缺失', '两个观察点的候选都缺少深度，切换一次视角后结束。', {
+    grid: grid(7, 5), start: [1, 2], views: [{ ...v('正面', [4, 2], target('no-depth', 0.95, null)), alternate: v('侧面', [4, 3], target('still-no-depth', 0.95, null)) }],
+  }),
+  make('cache-moved', '物品换位', '先检查历史位置；未发现目标时清除缓存，继续搜索。', {
+    grid: grid(9, 6), start: [1, 2], cachedViewId: '旧位置', views: [v('新位置', [7, 4], target('moved', 0.94, 1.1, 3, [7.5, 4.3]), '餐厅'), v('旧位置', [3, 2], empty('old-empty'))],
+  }),
+  make('all-blocked', '通道封闭', '新增障碍封闭唯一通道，重规划后标记不可达观察点，结束任务。', {
+    grid: grid(9, 7, [[4, 0], [4, 1], [4, 2], [4, 4], [4, 5], [4, 6]]), start: [1, 3], views: [v('隔墙A', [7, 3], target('blocked')), v('隔墙B', [7, 5], target('blocked-b'))],
+  }, [{ atStep: 2, action: 'injectObstacle', position: [4, 3] }]),
+  make('budget', '步数上限', '步数上限设为 6，机器人到达远端观察点前停止。', {
+    grid: grid(12, 7), start: [1, 3], views: [v('远端', [10, 3], target('far'))], config: { ...config, maxSteps: 6 },
+  }),
+  make('skip-unreachable', '跳过不可达观察点', '跳过被障碍包围的第一个点，前往第二个点观察。', {
+    grid: grid(9, 7, [[5, 1], [4, 2], [6, 2], [5, 3]]), start: [1, 2], views: [v('封闭点', [5, 2], target('sealed')), v('可达点', [2, 5], target('reachable', 0.93, 1.2, 3, [2.4, 5.2]))],
+  }),
+  make('stale-duplicate', '过期帧与重复帧', '输入包含过期帧、重复编号及不同标签，检查连续帧计数是否正确重置。', {
+    grid: grid(11, 5), start: [1, 2], views: [v('证据审查', [8, 2], [
+      { ...target('stale', 0.95, 1.1, 1)[0], timestampMs: 0 },
+      { ...target('repeat', 0.95, 1.1, 1)[0], offsetMs: 100 },
+      { ...target('repeat', 0.95, 1.1, 1)[0], offsetMs: 200 },
+      { ...target('identity', 0.95, 1.1, 1)[0], offsetMs: 300, label: 'bottle' },
+      { ...target('last', 0.95, 1.1, 1)[0], offsetMs: 400 },
+    ])],
+  }),
+];
+
+const getScenario = id => SCENARIOS.find(s => s.id === id);
+const SCENARIO_IDS = SCENARIOS.map(s => s.id);
+
+
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const stateNames = {SELECT_VIEW:'选择观察点',NAVIGATE:'导航执行中',OBSERVE:'到点观察',VERIFY:'复核候选',STOPPED:'停车处理障碍',REPLAN:'重新规划路径',PAUSED:'任务已暂停',FOUND:'已核实并报告',NOT_FOUND:'搜索结束',BLOCKED:'受阻退出',BUDGET_EXCEEDED:'达到任务预算'};
+const eventNames = {START:'建立新任务',SELECT_VIEW:'选择下一观察点',VIEW_SELECTED:'选择下一观察点',PLAN:'规划到观察点',MOVE:'沿可行路径前进',ARRIVED:'到达观察点',OBSERVE:'读取观察输入',FRAME:'检查候选帧',FRAME_ACCEPTED:'接收有效候选帧',FRAME_REJECTED:'拒绝不合格证据',VERIFY:'检查连续证据',CONFIRMED:'候选通过复核',REPORT:'核实后报告位置',FOUND:'目标核实完成',INVALIDATE_CACHE:'旧位置未核实，缓存失效',CACHE_INVALIDATED:'旧位置未核实，缓存失效',OBSTACLE_UPDATE:'地图收到新增障碍',OBSTACLE_ADDED:'地图收到新增障碍',OBSTACLE_CLEARED:'移除新增障碍',STOP:'停止前进',STOPPED:'停止前进',REPLAN:'障碍更新后重新规划',CHANGE_VIEW:'换一个观察角度',VIEW_SWITCH:'换一个观察角度',SWITCH_VIEW:'换一个观察角度',VIEW_COMPLETE:'记录观察点已完成',VIEW_VISITED:'记录观察点已完成',UNREACHABLE:'观察点不可达',VIEW_UNREACHABLE:'记录不可达观察点',NOT_FOUND:'未获得足够可信的目标证据',NO_VERIFIED_TARGET:'未获得足够可信的目标证据',BLOCKED:'剩余观察点均受阻',BUDGET_EXCEEDED:'达到任务预算，停止执行',PAUSE:'暂停并保留任务记录',PAUSED:'暂停并保留任务记录',RESUME:'从当前进度继续',RESUMED:'从当前进度继续'};
+const terminal = s => ['found','not_found','blocked','budget_exceeded'].includes(s.status);
+const reasonText = {DUPLICATE_FRAME:'帧编号或时间重复，计数清零。',STALE_OR_INVALID_TIMESTAMP:'帧已过期或时间无效，计数清零。',TARGET_MISMATCH:'标签与目标不符，计数清零。',LOW_CONFIDENCE:'置信度低于阈值，本帧未通过。',INVALID_DEPTH:'深度缺失或超出范围。',INVALID_POSITION:'目标坐标无效。',NON_MONOTONIC_TIMESTAMP:'帧时间倒退，计数清零。',FRAME_GAP_TOO_LARGE:'帧间隔过长，重新计数。',POSITION_INCONSISTENT:'位置变化过大，重新计数。',DEPTH_INCONSISTENT:'深度变化过大，重新计数。',VALID_CONTINUOUS_EVIDENCE:'本帧通过检查。',EVIDENCE_EXPIRED:'已有帧过期，重新复核。'};
+let scenarioIndex = 0, mission, snap, timer = null, started = false, scriptDone = new Set(), added = new Set();
+let voiceAutoSpeak = true;
+SCENARIOS.forEach((s,i)=> $('scenario').add(new Option(s.name,i)));
+
+function stopTimer(){ if(timer !== null) clearTimeout(timer); timer=null; }
+function schedule(){stopTimer();timer=setTimeout(tick,350);}
+function reset(index=scenarioIndex){stopTimer();scenarioIndex=Number(index);$('scenario').value=String(scenarioIndex);mission=createMission(SCENARIOS[scenarioIndex].spec);snap=mission.snapshot();started=false;scriptDone.clear();added.clear();render();}
+function action(item){
+  if(item.action==='injectObstacle'){snap=mission.injectObstacle(item.position);added.add(item.position.join(','));}
+  if(item.action==='clearObstacle'){snap=mission.clearObstacle(item.position);added.delete(item.position.join(','));}
+  if(item.action==='pause')snap=mission.pause();
+  if(item.action==='resume')snap=mission.resume();
+}
+function advance(){
+  if(terminal(snap))return;
+  started=true;
+  const script=SCENARIOS[scenarioIndex].script||[];
+  const pending=script.findIndex((s,i)=>!scriptDone.has(i)&&snap.metrics.steps>=s.atStep);
+  if(pending>=0){scriptDone.add(pending);action(script[pending]);}
+  else{if(snap.status==='paused')snap=mission.resume();snap=mission.step();}
+  render();
+}
+function tick(){timer=null;advance();if(!terminal(snap))schedule();render();}
+function play(){
+  if(timer!==null){stopTimer();snap=mission.pause();render();return;}
+  if(terminal(snap))reset();
+  if(snap.status==='paused')snap=mission.resume();
+  started=true;advance();if(!terminal(snap))schedule();render();
+}
+function announce(input,output){
+  $('speech-input').textContent=input;
+  $('speech-output').textContent=output;
+  if(voiceAutoSpeak&&'speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    const utterance=new SpeechSynthesisUtterance(output);
+    utterance.lang='zh-CN';utterance.rate=1;
+    window.speechSynthesis.speak(utterance);
+  }
+}
+function voiceSearch(){
+  if(scenarioIndex!==0||terminal(snap))reset(0);
+  announce('（模拟）开始找杯子','开始找杯子。我先前往第一个观察点。');
+  play();
+}
+function voiceStatus(){
+  const response=!started?'任务还没有开始。你可以说，开始找杯子。':snap.status==='found'?`已经找到杯子，在${snap.report?.room||'目标区域'}的${snap.report?.viewId||'观察点'}附近。`:terminal(snap)?`本次任务${stateNames[snap.state]||'已结束'}，尚未确认杯子。`:`任务正在${stateNames[snap.state]||'运行'}，${snap.currentView?.id?`当前前往${snap.currentView.id}。`:'正在选择观察点。'}`;
+  announce('（模拟）询问任务状态',response);
+}
+function voiceReport(){
+  if(snap.status!=='found'||!snap.report)return;
+  announce('（模拟）播报找到位置',`找到杯子，在${snap.report.room}的${snap.report.viewId}附近。`);
+}
+function renderMap(){
+  const grid=snap.grid||SCENARIOS[scenarioIndex].spec.grid,w=grid.width,h=grid.height,cell=47,pad=27;
+  const blocked=new Set(grid.blocked.map(p=>p.join(','))),path=snap.path||[],visited=new Set(snap.visited||[]),views=snap.views||[];
+  const xy=p=>[pad+(p[0]+.5)*cell,pad+(p[1]+.5)*cell];
+  let out=`<svg viewBox="0 0 ${w*cell+pad*2} ${h*cell+pad*2}" role="img" aria-label="${esc(stateNames[snap.state]||snap.state)}，机器人在栅格 ${esc(snap.position.join(','))}"><defs><pattern id="wallhatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#cbd6cc"/><line x1="0" y1="0" x2="0" y2="7" stroke="#b7c5b8" stroke-width="2"/></pattern></defs>`;
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    const key=x+','+y,isBlocked=blocked.has(key),dynamic=added.has(key);
+    out+=`<rect data-cell="${key}" x="${pad+x*cell+1}" y="${pad+y*cell+1}" width="${cell-2}" height="${cell-2}" rx="5" fill="${isBlocked?(dynamic?'#d9a467':'url(#wallhatch)'):'#edf2e9'}"/>`;
+    if(dynamic&&isBlocked)out+=`<path d="M${pad+x*cell+18},${pad+y*cell+18}l11,11m0,-11l-11,11" stroke="#815021" stroke-width="2" pointer-events="none"/>`;
+  }
+  for(let x=0;x<w;x++)out+=`<text x="${pad+(x+.5)*cell}" y="16" text-anchor="middle" font-size="10" fill="#8a9b8a">${x}</text>`;
+  for(let y=0;y<h;y++)out+=`<text x="13" y="${pad+(y+.5)*cell+4}" text-anchor="middle" font-size="10" fill="#8a9b8a">${y}</text>`;
+  const movement=(snap.trace||[]).filter(e=>e.type==='MOVE'&&e.position).map(e=>xy(e.position));
+  if(movement.length)out+=`<polyline points="${[xy(SCENARIOS[scenarioIndex].spec.start),...movement].map(p=>p.join(',')).join(' ')}" stroke="#c2d9c7" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>`;
+  if(path.length>1&&!path.some(p=>blocked.has(p.join(',')))&&!['STOPPED','REPLAN'].includes(snap.state))out+=`<polyline points="${path.map(p=>xy(p).join(',')).join(' ')}" stroke="#37a17b" stroke-width="4" fill="none" stroke-dasharray="6 7" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>`;
+  views.forEach((v,index)=>{
+    const [x,y]=xy(v.position),done=v.status==='visited'||visited.has(v.id),current=v.id===snap.currentView?.id,unreachable=v.status==='unreachable';
+    const left=v.position[0]>w-3;
+    out+=`<g pointer-events="none"><circle cx="${x}" cy="${y}" r="${current?17:14}" fill="${done?'#d3ead9':unreachable?'#f5e3cf':'#fff'}" stroke="${current?'#17664d':unreachable?'#bd9666':'#93ac98'}" stroke-width="${current?2.5:1.5}"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="11" font-weight="600" fill="#355b42">${index+1}</text><text x="${x+(left?-23:23)}" y="${y+4}" text-anchor="${left?'end':'start'}" font-size="11" fill="#45634d" stroke="#f1f5ed" stroke-width="3" paint-order="stroke">${esc(v.id)}</text></g>`;
+  });
+  const [rx,ry]=xy(snap.position),danger=['STOPPED','REPLAN','BLOCKED','BUDGET_EXCEEDED'].includes(snap.state);
+  if(['OBSERVE','VERIFY'].includes(snap.state))out+=`<circle cx="${rx}" cy="${ry}" r="25" fill="none" stroke="#80b996" stroke-width="2" stroke-dasharray="3 5" pointer-events="none"/>`;
+  out+=`<g pointer-events="none"><circle cx="${rx}" cy="${ry+2}" r="16" fill="#1c433328"/><circle cx="${rx}" cy="${ry}" r="15" fill="${danger?'#b67631':'#17664d'}" stroke="white" stroke-width="3"/><path d="M${rx-5},${ry+5}L${rx},${ry-6}L${rx+5},${ry+5}L${rx},${ry+2}Z" fill="white"/></g></svg>`;
+  $('map').innerHTML=out;
+  $('position-label').textContent=`栅格 ${snap.position.join(', ')} · ${snap.metrics.navigationMoves} 次移动`;
+}
+function detailForSnapshot(){
+  if(!started)return['未开始','选择场景后开始任务；点击“演示”运行综合场景。','选择观察点'];
+  const ev=snap.trace?.at(-1)||{},view=snap.currentView?.id||'下一',room=snap.currentView?.room||'目标区域';
+  const defaults={
+    SELECT_VIEW:['选择观察点','跳过已完成的点，检查剩余点是否可达。','规划路径'],
+    NAVIGATE:[`前往 ${view}`,`目的地：${room}。`,'沿路径移动'],
+    OBSERVE:[`到达 ${view}`,'开始读取该点的检测帧。','检查检测结果'],
+    VERIFY:['目标复核中','检查连续帧、深度和位置。','读取下一帧'],
+    STOPPED:['检测到障碍，停止移动','原路径暂停执行。','重新规划'],
+    REPLAN:['重新规划路径','根据更新后的地图计算路径。','继续导航或更换观察点'],
+    PAUSED:['已暂停','位置和观察点记录已保留。','继续任务'],
+    FOUND:['目标复核通过','已生成位置报告。','任务结束'],
+    NOT_FOUND:['未确认目标','观察已结束，没有满足确认条件的目标。','任务结束'],
+    BLOCKED:['观察点不可达','仍有观察点未完成搜索。','记录受阻结果'],
+    BUDGET_EXCEEDED:['已达任务上限','达到步数或模拟时间上限。','停止任务']
+  };
+  const value=defaults[snap.state]||[stateNames[snap.state]||snap.state,'','继续推进任务'];
+  if(snap.events.some(e=>e.type==='CHANGE_VIEW'))return ['切换观察点','当前候选未通过复核，前往备用观察点。','到点后重新检测'];
+  if(snap.events.some(e=>e.type==='CACHE_INVALIDATED'))return ['旧位置已失效','原位置未确认目标，继续搜索。','选择下一个观察点'];
+  if(reasonText[snap.evidence?.reason]&&snap.state==='VERIFY')value[1]=reasonText[snap.evidence.reason];
+  else if(snap.reason&&terminal(snap))value[1]=snap.reason;
+  else if(ev.message&&snap.state!=='PAUSED')value[1]=ev.message;
+  else if(ev.reason&&typeof ev.reason==='string'&&/[\u4e00-\u9fa5]/.test(ev.reason)&&!terminal(snap))value[1]=ev.reason;
+  return value;
+}
+function renderEvidence(){
+  const e=snap.evidence||{},count=e.count||0,required=e.required||3,conf=Number.isFinite(e.confidence)?e.confidence:null;
+  const depthValid=typeof e.validDepth==='boolean'?e.validDepth:Number.isFinite(e.depth)&&e.depth>=.2&&e.depth<=4;
+  const seen=Number.isFinite(e.frameTimestampMs)||e.frameId!=null;
+  const rejected=/过期|重复|时间|stale|duplicate|timestamp|future/i.test(e.reason||'');
+  const threshold=SCENARIOS[scenarioIndex].spec.config?.minConfidence??.8;
+  $('evidence-count').textContent=`${count} / ${required} 帧`;
+  $('evidence-bars').innerHTML=Array.from({length:Math.min(required,10)},(_,i)=>`<i class="${i<count?'on':''}"></i>`).join('');
+  const rows=[
+    [`置信度 ≥ ${threshold.toFixed(2)}${conf!==null?' · '+conf.toFixed(2):''}`,conf===null?null:conf>=threshold],
+    [`有效深度${Number.isFinite(e.depth)?' · '+e.depth.toFixed(2)+' m':''}`,seen?depthValid:null],
+    ['位置连续一致',count>=2?true:seen&&e.positionStable===false?false:null],
+    ['帧新鲜且不重复',seen?!rejected:null]
+  ];
+  $('evidence-checks').innerHTML=rows.map(([label,pass])=>`<div class="check ${pass===true?'good':pass===false?'bad':''}"><span class="check-icon">${pass===true?'✓':pass===false?'!':'·'}</span><span>${esc(label)}</span></div>`).join('');
+  $('evidence-note').textContent=reasonText[e.reason]||(e.reason&&/[\u4e00-\u9fa5]/.test(e.reason)?e.reason:seen?'累计连续有效帧。':'等待检测帧。');
+}
+function renderVision(){
+  const e=snap.evidence||{},conf=Number.isFinite(e.confidence)?e.confidence:null;
+  const active=['OBSERVE','VERIFY','FOUND'].includes(snap.state);
+  const threshold=SCENARIOS[scenarioIndex].spec.config?.candidateConfidence??.35;
+  const candidate=active&&conf!==null&&conf>=threshold;
+  $('vision-object').classList.toggle('visible',candidate);
+  $('vision-box').classList.toggle('visible',candidate);
+  $('vision-box-label').classList.toggle('visible',candidate);
+  $('vision-box-label').textContent=candidate?`杯子候选 · ${conf.toFixed(2)}`:'等待候选';
+  const message=!active?started?'到达观察点后，读取对应相机帧。':'等待任务开始。':conf===null?'已到达，等待合成相机帧。':candidate?`类别：杯子候选　置信度：${conf.toFixed(2)}　深度：${Number.isFinite(e.depth)?e.depth.toFixed(2)+' m':'无效'}`:'当前帧没有可复核的目标候选。';
+  $('vision-detection').textContent=candidate?'检测到候选目标':'合成相机帧';
+  $('vision-output').textContent=message;
+  if(e.frameId)$('vision-caption').textContent=`观察点 ${snap.currentView?.id||'已完成'} · 帧 ${e.frameId}`;
+  else $('vision-caption').textContent=active?'RGB 图像 + 深度输入（合成）':'相机输入等待中';
+}
+function render(){
+  const isEnd=terminal(snap),running=timer!==null;
+  $('play').textContent=isEnd?'重新开始':running?'暂停任务':!started?'开始任务':'继续任务';
+  $('step').disabled=isEnd||running;
+  const stages={SELECT_VIEW:'plan',NAVIGATE:'navigate',STOPPED:'navigate',REPLAN:'navigate',OBSERVE:'observe',VERIFY:'observe',FOUND:'report',NOT_FOUND:'report',BLOCKED:'report',BUDGET_EXCEEDED:'report'};
+  document.querySelectorAll('[data-stage]').forEach(el=>el.classList.toggle('active',el.dataset.stage===(stages[snap.state]||'plan')));
+  $('live-state').textContent=started?(stateNames[snap.state]||snap.state):'未开始';
+  $('live-state').className='state-pill'+(['STOPPED','REPLAN','PAUSED'].includes(snap.state)?' alert':['BLOCKED','BUDGET_EXCEEDED','NOT_FOUND'].includes(snap.state)?' failed':'');
+  const [title,body,next]=detailForSnapshot();$('decision-title').textContent=title;$('decision-body').textContent=body;$('next-action').textContent=next;
+  renderMap();renderEvidence();renderVision();
+  $('result-panel').className='result-inline'+(snap.status==='found'?' found':isEnd?' ended':'');
+  $('voice-report').disabled=snap.status!=='found';
+  if(snap.status==='found'){
+    $('result-title').textContent='已找到杯子';
+    $('result-body').textContent=snap.report?.message||snap.report?.text||`在${snap.report?.room||snap.currentView?.room||'预设区域'}的观察点 ${snap.report?.viewId||snap.currentView?.id||''} 附近发现目标。`;
+  }else if(isEnd){$('result-title').textContent=stateNames[snap.state];$('result-body').textContent=snap.status==='blocked'?'仍有观察点不可达。':snap.status==='budget_exceeded'?'达到任务上限，目标尚未确认。':'目标未通过复核。';}
+  else{$('result-title').textContent='待完成';$('result-body').textContent='目标：杯子';}
+}
+$('voice-search').onclick=voiceSearch;
+$('voice-status').onclick=voiceStatus;
+$('voice-report').onclick=voiceReport;
+if(!('speechSynthesis' in window))$('speech-output').textContent='点击口令，查看文字响应';
+document.body.addEventListener('click',e=>{if(e.target.closest('#voice-search,#voice-status,#voice-report'))voiceAutoSpeak='speechSynthesis' in window;});
+$('play').onclick=play;
+$('step').onclick=()=>{stopTimer();advance();};
+$('reset').onclick=()=>reset();
+$('scenario').onchange=()=>reset($('scenario').value);
+$('demo').onclick=()=>{reset(0);play();};
+document.addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA','BUTTON','SUMMARY'].includes(e.target.tagName))return;if(e.code==='Space'){e.preventDefault();play();}else if(e.key==='ArrowRight'&&timer===null){e.preventDefault();advance();}else if(e.key.toLowerCase()==='r')reset();});
+window.ROBOCUP_DEMO={snapshot:()=>mission.snapshot(),getScenario:()=>SCENARIOS[scenarioIndex].id,scenarios:SCENARIOS.map(s=>({id:s.id,name:s.name})),advance,reset,stop:()=>{stopTimer();snap=mission.pause();render();}};
+reset();
+</script>
+</body>
+</html>
